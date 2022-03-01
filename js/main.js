@@ -57,28 +57,23 @@ const randomNumWithDecimal = (min = 0, max = 10, numberOfDecimal = 1) => {
 };
 
 const getRandomArrayElement = (elements) => elements[getInteger(0, elements.length - 1)];
-console.log(FEATURE_VALUES);
-const createArr = (source) => Array.from(
+const createArr = ([...source]) => Array.from(
   { length: getInteger(1, source.length) },
   () => source.splice(0, 1)[0]
 );
 
-// const getAuthorObj = (digit) => ({
-
-// });
-
 const getOfferObj = (lat, lng) => ({
   title: getRandomArrayElement(TITLE_VALUES),
   address: `${lat}, ${lng}`,
-  price: randomNumWithDecimal(100, 500),
+  price: getInteger(100, 500),
   type: getRandomArrayElement(TYPE_VALUES),
-  rooms: randomNumWithDecimal(1, 4),
-  guests: randomNumWithDecimal(1, 10),
+  rooms: getInteger(1, 4),
+  guests: getInteger(1, 10),
   checkin: getRandomArrayElement(TIME_VALUES),
   checkout: getRandomArrayElement(TIME_VALUES),
   features: createArr(FEATURE_VALUES),
-  description: '',
-  photos: ['111','222']
+  description: getRandomArrayElement(DESCRIPTION_VALUES),
+  photos: createArr(PHOTO_VALUES)
 });
 
 const getLocationObj = (lat, lng) => ({
@@ -100,8 +95,6 @@ const createAds = () => {
 };
 
 
-const arr = Array.from({length : 10}, createAds);
-console.log(arr);
+const publishAds = () => Array.from({length : 10}, createAds);
 
-console.log(createArr(FEATURE_VALUES));
-
+console.log(publishAds());
