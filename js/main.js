@@ -57,6 +57,7 @@ const randomNumWithDecimal = (min = 0, max = 10, numberOfDecimal = 1) => {
 };
 
 const getRandomArrayElement = (elements) => elements[getInteger(0, elements.length - 1)];
+
 const createArr = ([...source]) => Array.from(
   { length: getInteger(1, source.length) },
   () => source.splice(0, 1)[0]
@@ -94,7 +95,6 @@ const createAds = () => {
   };
 };
 
-
 const publishAds = () => Array.from({length : 10}, createAds);
 
-console.log(publishAds());
+publishAds();
