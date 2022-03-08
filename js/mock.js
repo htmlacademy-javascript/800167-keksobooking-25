@@ -17,11 +17,6 @@ const getOfferObj = (lat, lng) => ({
   photos: createArr(PHOTO_VALUES)
 });
 
-const getLocationObj = (lat, lng) => ({
-  lat,
-  lng
-});
-
 const createAds = () => {
   const lat = randomNumWithDecimal(35.65000, 35.70000, 5);
   const lng = randomNumWithDecimal(139.70000, 139.80000, 5);
@@ -31,7 +26,10 @@ const createAds = () => {
       avatar: `img/avatars/user${userId < 10 ? `0${userId}` : userId}.png`
     },
     offer: getOfferObj(lat, lng),
-    location: getLocationObj(lat, lng)
+    location: {
+      lat,
+      lng
+    }
   };
 };
 
