@@ -4,13 +4,13 @@ const TITLE_VALUES = [
   'The Langham, London',
   'Baglioni Hotel London'
 ];
-const TYPE_VALUES = [
-  'palace',
-  'flat',
-  'house',
-  'bungalow',
-  'hotel'
-];
+const TYPE_VALUES = {
+  'flat': 'Квартира',
+  'bungalow': 'Бунгало',
+  'house': 'Дом',
+  'palace': 'Дворец',
+  'hotel': 'Отель',
+};
 const TIME_VALUES = [
   '12:00',
   '13:00',
