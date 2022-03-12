@@ -9,12 +9,19 @@ const advert = publishAds(10);
 
 const elementContainerFragment = document.createDocumentFragment();
 
-const fillElementContent = (elem, selector, content, imgSrc = null) => {
+const fillElementContent = (elem, selector, content) => {
   if (content) {
     elem.querySelector(selector).textContent = content;
+  } else {
+    elem.querySelector(selector).style.display = 'none';
   }
+};
+
+const fillElementAvatar = (elem, selector, imgSrc) => {
   if (imgSrc) {
     elem.querySelector(selector).src = imgSrc;
+  } else {
+    elem.querySelector(selector).style.display = 'none';
   }
 };
 
@@ -55,7 +62,7 @@ advert.forEach(({author, offer}) => {
   fillElementContent(element, '.popup__description', offer.description);
 
   fillElementPhotos(element, offer.photos);
-  fillElementContent(element, '.popup__avatar', null, author.avatar);
+  fillElementAvatar(element, '.popup__avatar', author.avatar);
 
   elementContainerFragment.appendChild(element);
 
