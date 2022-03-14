@@ -1,4 +1,4 @@
 import './template.js';
-import { toggleStateInactive } from './form.js';
+import { toggleUiState } from './form.js';
 
-toggleStateInactive();
+toggleUiState(false);
