@@ -1,19 +1,23 @@
-import { TYPE_VALUES } from './data.js';
+import { TYPE_VALUES, COUNT_ADVERTISEMENTS } from './data.js';
 import { publishAds } from './mock.js';
 
 
 const advertContainer = document.querySelector('.map__canvas');
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const advert = publishAds(10);
+const advert = publishAds(COUNT_ADVERTISEMENTS);
 
 const elementContainerFragment = document.createDocumentFragment();
+
+const hideElement = (elem, selector) => {
+  elem.querySelector(selector).style.display = 'none';
+};
 
 const fillElementContent = (elem, selector, content) => {
   if (content) {
     elem.querySelector(selector).textContent = content;
   } else {
-    elem.querySelector(selector).style.display = 'none';
+    hideElement(elem, selector);
   }
 };
 
@@ -21,14 +25,14 @@ const fillElementAvatar = (elem, selector, imgSrc) => {
   if (imgSrc) {
     elem.querySelector(selector).src = imgSrc;
   } else {
-    elem.querySelector(selector).style.display = 'none';
+    hideElement(elem, selector);
   }
 };
 
 const fillElementFeatures = (elem, data) => {
   const featuresList = elem.querySelectorAll('.popup__feature');
 
-  featuresList.forEach( (feature) => {
+  featuresList.forEach((feature) => {
     const modifier = data.some((item) => feature.classList.contains(`popup__feature--${item}`));
 
     return !modifier ? feature.remove() : null;
