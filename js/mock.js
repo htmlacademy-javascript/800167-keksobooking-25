@@ -7,7 +7,7 @@ const getOfferObj = (lat, lng) => ({
   title: getRandomArrayElement(TITLE_VALUES),
   address: `${lat}, ${lng}`,
   price: getInteger(100, 500),
-  type: getRandomArrayElement(TYPE_VALUES),
+  type: getRandomArrayElement(Object.keys(TYPE_VALUES)),
   rooms: getInteger(1, 4),
   guests: getInteger(1, 10),
   checkin: getRandomArrayElement(TIME_VALUES),
@@ -17,7 +17,7 @@ const getOfferObj = (lat, lng) => ({
   photos: createArr(PHOTO_VALUES)
 });
 
-const createAds = () => {
+const createAd = () => {
   const lat = randomNumWithDecimal(35.65000, 35.70000, 5);
   const lng = randomNumWithDecimal(139.70000, 139.80000, 5);
   userId++;
@@ -33,6 +33,6 @@ const createAds = () => {
   };
 };
 
-const publishAds = () => Array.from({length : 10}, createAds);
+const publishAds = (count) => Array.from({length : count}, createAd);
 
-publishAds();
+export { publishAds };
