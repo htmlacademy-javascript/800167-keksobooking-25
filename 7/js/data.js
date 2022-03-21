@@ -37,11 +37,5 @@ const PHOTO_VALUES = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 const COUNT_ADVERTISEMENTS = 10;
-const ROOMS_OPTIONS = {
-  '1': '1',
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': '0'
-};
 
-export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS, ROOMS_OPTIONS };
+export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS };
