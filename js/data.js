@@ -4,12 +4,42 @@ const TITLE_VALUES = [
   'The Langham, London',
   'Baglioni Hotel London'
 ];
+const TypeValuesEn = {
+  FLAT: 'flat',
+  BUNGALOW: 'bungalow',
+  HOUSE: 'house',
+  PALACE: 'palace',
+  HOTEL: 'hotel',
+};
+const TypeValuesRu = {
+  FLAT: 'Квартира',
+  BUNGALOW: 'Бунгало',
+  HOUSE: 'Дом',
+  PALACE: 'Дворец',
+  HOTEL: 'Отель',
+};
+
+const TypeMinPrices = {
+  FLAT: 1000,
+  BUNGALOW: 0,
+  HOUSE: 5000,
+  PALACE: 10000,
+  HOTEL: 3000,
+};
+
 const TYPE_VALUES = {
-  'flat': 'Квартира',
-  'bungalow': 'Бунгало',
-  'house': 'Дом',
-  'palace': 'Дворец',
-  'hotel': 'Отель',
+  [TypeValuesEn.FLAT]: [TypeValuesRu.FLAT],
+  [TypeValuesEn.BUNGALOW]: [TypeValuesRu.BUNGALOW],
+  [TypeValuesEn.HOUSE]: [TypeValuesRu.HOUSE],
+  [TypeValuesEn.PALACE]: [TypeValuesRu.PALACE],
+  [TypeValuesEn.HOTEL]: [TypeValuesRu.HOTEL],
+};
+const TYPE_PRICE_VALUES = {
+  [TypeValuesEn.FLAT]: TypeMinPrices.FLAT,
+  [TypeValuesEn.BUNGALOW]: TypeMinPrices.BUNGALOW,
+  [TypeValuesEn.HOUSE]: TypeMinPrices.HOUSE,
+  [TypeValuesEn.PALACE]: TypeMinPrices.PALACE,
+  [TypeValuesEn.HOTEL]: TypeMinPrices.HOTEL,
 };
 const TIME_VALUES = [
   '12:00',
@@ -38,4 +68,4 @@ const PHOTO_VALUES = [
 ];
 const COUNT_ADVERTISEMENTS = 10;
 
-export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS };
+export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS, TYPE_PRICE_VALUES };
