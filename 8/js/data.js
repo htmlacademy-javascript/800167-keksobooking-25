@@ -4,42 +4,46 @@ const TITLE_VALUES = [
   'The Langham, London',
   'Baglioni Hotel London'
 ];
-const TypeValuesEn = {
-  FLAT: 'flat',
-  BUNGALOW: 'bungalow',
-  HOUSE: 'house',
-  PALACE: 'palace',
-  HOTEL: 'hotel',
+const buildingType = {
+  flat: {
+    key: 'flat',
+    title: 'Квартира',
+    minPrice: 1000
+  },
+  bungalow: {
+    key: 'bungalow',
+    title: 'Бунгало',
+    minPrice: 0
+  },
+  house: {
+    key: 'house',
+    title: 'Дом',
+    minPrice: 5000
+  },
+  palace: {
+    key: 'palace',
+    title: 'Дворец',
+    minPrice: 10000
+  },
+  hotel: {
+    key: 'hotel',
+    title: 'Отель',
+    minPrice: 3000
+  }
 };
-const TypeValuesRu = {
-  FLAT: 'Квартира',
-  BUNGALOW: 'Бунгало',
-  HOUSE: 'Дом',
-  PALACE: 'Дворец',
-  HOTEL: 'Отель',
-};
-
-const TypeMinPrices = {
-  FLAT: 1000,
-  BUNGALOW: 0,
-  HOUSE: 5000,
-  PALACE: 10000,
-  HOTEL: 3000,
-};
-
 const TYPE_VALUES = {
-  [TypeValuesEn.FLAT]: [TypeValuesRu.FLAT],
-  [TypeValuesEn.BUNGALOW]: [TypeValuesRu.BUNGALOW],
-  [TypeValuesEn.HOUSE]: [TypeValuesRu.HOUSE],
-  [TypeValuesEn.PALACE]: [TypeValuesRu.PALACE],
-  [TypeValuesEn.HOTEL]: [TypeValuesRu.HOTEL],
+  [buildingType.flat.key]: buildingType.flat.title,
+  [buildingType.bungalow.key]: buildingType.bungalow.title,
+  [buildingType.house.key]: buildingType.house.title,
+  [buildingType.palace.key]: buildingType.palace.title,
+  [buildingType.hotel.key]: buildingType.hotel.title,
 };
 const TYPE_PRICE_VALUES = {
-  [TypeValuesEn.FLAT]: TypeMinPrices.FLAT,
-  [TypeValuesEn.BUNGALOW]: TypeMinPrices.BUNGALOW,
-  [TypeValuesEn.HOUSE]: TypeMinPrices.HOUSE,
-  [TypeValuesEn.PALACE]: TypeMinPrices.PALACE,
-  [TypeValuesEn.HOTEL]: TypeMinPrices.HOTEL,
+  [buildingType.flat.key]: buildingType.flat.minPrice,
+  [buildingType.bungalow.key]: buildingType.bungalow.minPrice,
+  [buildingType.house.key]: buildingType.house.minPrice,
+  [buildingType.palace.key]: buildingType.palace.minPrice,
+  [buildingType.hotel.key]: buildingType.hotel.minPrice,
 };
 const TIME_VALUES = [
   '12:00',
