@@ -4,42 +4,46 @@ const TITLE_VALUES = [
   'The Langham, London',
   'Baglioni Hotel London'
 ];
-const TypeValuesEn = {
-  FLAT: 'flat',
-  BUNGALOW: 'bungalow',
-  HOUSE: 'house',
-  PALACE: 'palace',
-  HOTEL: 'hotel',
+const BuildingType= {
+  flat: {
+    key: 'flat',
+    title: 'Квартира',
+    minPrice: 1000
+  },
+  bungalow: {
+    key: 'bungalow',
+    title: 'Бунгало',
+    minPrice: 0
+  },
+  house: {
+    key: 'house',
+    title: 'Дом',
+    minPrice: 5000
+  },
+  palace: {
+    key: 'palace',
+    title: 'Дворец',
+    minPrice: 10000
+  },
+  hotel: {
+    key: 'hotel',
+    title: 'Отель',
+    minPrice: 3000
+  }
 };
-const TypeValuesRu = {
-  FLAT: 'Квартира',
-  BUNGALOW: 'Бунгало',
-  HOUSE: 'Дом',
-  PALACE: 'Дворец',
-  HOTEL: 'Отель',
-};
-
-const TypeMinPrices = {
-  FLAT: 1000,
-  BUNGALOW: 0,
-  HOUSE: 5000,
-  PALACE: 10000,
-  HOTEL: 3000,
-};
-
 const TYPE_VALUES = {
-  [TypeValuesEn.FLAT]: [TypeValuesRu.FLAT],
-  [TypeValuesEn.BUNGALOW]: [TypeValuesRu.BUNGALOW],
-  [TypeValuesEn.HOUSE]: [TypeValuesRu.HOUSE],
-  [TypeValuesEn.PALACE]: [TypeValuesRu.PALACE],
-  [TypeValuesEn.HOTEL]: [TypeValuesRu.HOTEL],
+  [BuildingType.flat.key]: BuildingType.flat.title,
+  [BuildingType.bungalow.key]: BuildingType.bungalow.title,
+  [BuildingType.house.key]: BuildingType.house.title,
+  [BuildingType.palace.key]: BuildingType.palace.title,
+  [BuildingType.hotel.key]: BuildingType.hotel.title,
 };
 const TYPE_PRICE_VALUES = {
-  [TypeValuesEn.FLAT]: TypeMinPrices.FLAT,
-  [TypeValuesEn.BUNGALOW]: TypeMinPrices.BUNGALOW,
-  [TypeValuesEn.HOUSE]: TypeMinPrices.HOUSE,
-  [TypeValuesEn.PALACE]: TypeMinPrices.PALACE,
-  [TypeValuesEn.HOTEL]: TypeMinPrices.HOTEL,
+  [BuildingType.flat.key]: BuildingType.flat.minPrice,
+  [BuildingType.bungalow.key]: BuildingType.bungalow.minPrice,
+  [BuildingType.house.key]: BuildingType.house.minPrice,
+  [BuildingType.palace.key]: BuildingType.palace.minPrice,
+  [BuildingType.hotel.key]: BuildingType.hotel.minPrice,
 };
 const TIME_VALUES = [
   '12:00',
@@ -68,4 +72,4 @@ const PHOTO_VALUES = [
 ];
 const COUNT_ADVERTISEMENTS = 10;
 
-export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS, TYPE_PRICE_VALUES };
+export { TITLE_VALUES, TYPE_VALUES, TIME_VALUES, FEATURE_VALUES, DESCRIPTION_VALUES, PHOTO_VALUES, COUNT_ADVERTISEMENTS, TYPE_PRICE_VALUES, BuildingType };
