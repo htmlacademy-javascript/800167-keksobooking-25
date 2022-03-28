@@ -33,6 +33,7 @@ const ROOM_GUEST_CAPACITY = {
   [RoomsCount.THREE]: [GuestsCount.ONE, GuestsCount.TWO, GuestsCount.THREE],
   [RoomsCount.HUNDRED]: GuestsCount.UNAVAILABLE
 };
+const SLIDER_STEP_VALUE = 1000;
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -63,7 +64,7 @@ adFormType.addEventListener('change', (evt) => {
       min: typeValue,
       max: PRICE_MAX_VALUE,
     },
-    step: 1000,
+    step: SLIDER_STEP_VALUE,
   });
   pristine.validate(adFormPrice);
 });

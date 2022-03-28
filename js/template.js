@@ -45,7 +45,7 @@ const fillElementPhotos = (elem, photos) => {
   });
 };
 
-const templatePopup = ({author, offer}) =>  {
+const templatePopup = ({author, offer}) => {
   const element = advertTemplate.cloneNode(true);
 
   fillElementContent(element, '.popup__title', offer.title);
