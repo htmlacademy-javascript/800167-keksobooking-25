@@ -1,4 +1,5 @@
-import './template.js';
+import { drawMap } from './map.js';
 import { toggleUiState } from './form.js';
 import './validation.js';
-toggleUiState(true);
+toggleUiState(false);
+drawMap();

@@ -1,13 +1,7 @@
-import { TYPE_VALUES, COUNT_ADVERTISEMENTS } from './data.js';
-import { publishAds } from './mock.js';
+import { TYPE_VALUES } from './data.js';
 
 
-const advertContainer = document.querySelector('.map__canvas');
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const advert = publishAds(COUNT_ADVERTISEMENTS);
-
-const elementContainerFragment = document.createDocumentFragment();
 
 const hideElement = (elem, selector) => {
   elem.querySelector(selector).style.display = 'none';
@@ -51,7 +45,7 @@ const fillElementPhotos = (elem, photos) => {
   });
 };
 
-advert.forEach(({author, offer}) => {
+const templatePopup = ({author, offer}) => {
   const element = advertTemplate.cloneNode(true);
 
   fillElementContent(element, '.popup__title', offer.title);
@@ -68,9 +62,9 @@ advert.forEach(({author, offer}) => {
   fillElementPhotos(element, offer.photos);
   fillElementAvatar(element, '.popup__avatar', author.avatar);
 
-  elementContainerFragment.appendChild(element);
+  return element;
 
-});
+};
 
 
-advertContainer.appendChild(elementContainerFragment.children[0]);
+export { templatePopup };

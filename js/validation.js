@@ -8,6 +8,7 @@ const adFormPrice = adForm.querySelector('#price');
 const adFormType = adForm.querySelector('#type');
 const timeIn = adForm.querySelector('#timein');
 const timeOut = adForm.querySelector('#timeout');
+const adFormSlider = document.querySelector('.ad-form__slider');
 
 const PRICE_MAX_VALUE = 100000;
 const TITLE_LENGTH = {
@@ -32,6 +33,7 @@ const ROOM_GUEST_CAPACITY = {
   [RoomsCount.THREE]: [GuestsCount.ONE, GuestsCount.TWO, GuestsCount.THREE],
   [RoomsCount.HUNDRED]: GuestsCount.UNAVAILABLE
 };
+const SLIDER_STEP_VALUE = 1000;
 
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
@@ -42,7 +44,7 @@ const pristine = new Pristine(adForm, {
 
 
 const validateTitle = (value) => value.length >= TITLE_LENGTH.MIN && value.length <= TITLE_LENGTH.MAX;
-const validatePrice = (value) => value < PRICE_MAX_VALUE && value >= TYPE_PRICE_VALUES[adFormType.value];
+const validatePrice = (value) => value <= PRICE_MAX_VALUE && value >= TYPE_PRICE_VALUES[adFormType.value];
 const validateCapacity = () => ROOM_GUEST_CAPACITY[adFormRooms.value].includes(adFormCapacity.value);
 const getErrorTextCapacity = () => Number(adFormRooms.value) === Number(RoomsCount.HUNDRED) ? 'Комнаты не для гостей' : 'Недостаточно мест, выберите другое значение';
 const getErrorTextPrice = () => Number(adFormPrice.value) < TYPE_PRICE_VALUES[adFormType.value] ? `Минимальная цена: ${TYPE_PRICE_VALUES[adFormType.value]}` : 'Максимальная цена 100 000';
@@ -57,6 +59,13 @@ adFormType.addEventListener('change', (evt) => {
   const typeValue = TYPE_PRICE_VALUES[evt.target.value];
   adFormPrice.placeholder = typeValue;
   adFormPrice.setAttribute('min', typeValue);
+  adFormSlider.noUiSlider.updateOptions({
+    range: {
+      min: typeValue,
+      max: PRICE_MAX_VALUE,
+    },
+    step: SLIDER_STEP_VALUE,
+  });
   pristine.validate(adFormPrice);
 });
 
@@ -66,6 +75,29 @@ timeIn.addEventListener('change', (evt) => {
 
 timeOut.addEventListener('change', (evt) => {
   timeIn.value = evt.target.value;
+});
+
+noUiSlider.create(adFormSlider, {
+  range: {
+    min: TYPE_PRICE_VALUES[adFormType.value],
+    max: PRICE_MAX_VALUE,
+  },
+  start: 0,
+  step: 1000,
+  connect: 'lower',
+  format: {
+    to: (value) => value.toFixed(0),
+    from: (value) => parseFloat(value),
+  }
+});
+
+adFormSlider.noUiSlider.on('change', () => {
+  adFormPrice.value = adFormSlider.noUiSlider.get();
+  pristine.validate(adFormPrice);
+});
+
+adFormPrice.addEventListener('change', () => {
+  adFormSlider.noUiSlider.set(adFormPrice.value);
 });
 
 
