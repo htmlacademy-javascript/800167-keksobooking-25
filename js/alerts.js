@@ -2,12 +2,14 @@ import { isEscapeKey } from './utils.js';
 
 const bodyElement = document.querySelector('body');
 
+const SHOW_TIME_DELAY = 3000;
+
 const showErrorMessage = (text) => {
   document.body.insertAdjacentHTML('beforeend', `<div class="error-message">${text}</div>`);
   const errorTemplate = document.querySelector('.error-message');
   setTimeout(() => {
     errorTemplate.remove();
-  }, 3000);
+  }, SHOW_TIME_DELAY);
 };
 
 const showTypicalMessage = (type) => {

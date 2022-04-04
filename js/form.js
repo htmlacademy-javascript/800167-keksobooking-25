@@ -12,6 +12,9 @@ const mapFormElements = Array.from(mapForm.children);
 const adFormSendButton = document.querySelector('.ad-form__submit');
 const adFormResetButton = document.querySelector('.ad-form__reset');
 
+const COUNT_ADVERTISEMENTS = 10;
+const RESET_PIN_DELAY = 100;
+
 const toggleUiState = (isActive) => {
   if (isActive) {
     adForm.classList.remove('ad-form--disabled');
@@ -29,10 +32,10 @@ const toggleUiState = (isActive) => {
 const toggleSendState = (isSend) => {
   if (isSend) {
     adFormSendButton.setAttribute('disabled', true);
-    adFormSendButton.textContent = 'Публикуется...';
+    adFormSendButton.textContent = DICTIONARY.FORM.BUTTON_SEND_STATE;
   } else {
     adFormSendButton.removeAttribute('disabled');
-    adFormSendButton.textContent = 'Опубликовать';
+    adFormSendButton.textContent = DICTIONARY.FORM.BUTTON_DEFAULT_STATE;
   }
 };
 
@@ -42,11 +45,11 @@ const setDefaultStateForm = () => {
   resetSliderUi();
   setTimeout(()=> {
     resetMainPin();
-  }, 100);
+  }, RESET_PIN_DELAY);
 };
 
 getData(
-  (adverts) => adverts ? drawMap(adverts.slice(0, 10)) : drawMap(),
+  (adverts) => adverts ? drawMap(adverts.slice(0, COUNT_ADVERTISEMENTS)) : drawMap(),
   () => showErrorMessage(DICTIONARY.HTTP.ERROR_GET)
 );
 

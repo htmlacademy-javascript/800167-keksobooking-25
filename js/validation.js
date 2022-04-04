@@ -48,7 +48,7 @@ const validateTitle = (value) => value.length >= TITLE_LENGTH.MIN && value.lengt
 const validatePrice = (value) => value <= PRICE_MAX_VALUE && value >= TYPE_PRICE_VALUES[adFormType.value];
 const validateCapacity = () => ROOM_GUEST_CAPACITY[adFormRooms.value].includes(adFormCapacity.value);
 const getErrorTextCapacity = () => Number(adFormRooms.value) === Number(RoomsCount.HUNDRED) ? DICTIONARY.FORM.ERROR_NOT_FOR_GUESTS : DICTIONARY.FORM.ERROR_NOT_ENOUGH_CAPACITY;
-const getErrorTextPrice = () => Number(adFormPrice.value) < TYPE_PRICE_VALUES[adFormType.value] ? `Минимальная цена: ${TYPE_PRICE_VALUES[adFormType.value]}` : DICTIONARY.FORM.MAX_PRICE;
+const getErrorTextPrice = () => Number(adFormPrice.value) < TYPE_PRICE_VALUES[adFormType.value] ? `Минимальная цена: ${TYPE_PRICE_VALUES[adFormType.value]}` : DICTIONARY.FORM.ERROR_MAX_PRICE;
 
 pristine.addValidator(adFormTitle, validateTitle, DICTIONARY.FORM.ERROR_TITLE);
 pristine.addValidator(adFormPrice, validatePrice, getErrorTextPrice);
