@@ -1,11 +1,8 @@
 import { TYPE_VALUES } from './data.js';
+import { hideElement } from './utils.js';
 
 
 const advertTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const hideElement = (elem, selector) => {
-  elem.querySelector(selector).style.display = 'none';
-};
 
 const fillElementContent = (elem, selector, content) => {
   if (content) {
@@ -26,23 +23,29 @@ const fillElementAvatar = (elem, selector, imgSrc) => {
 const fillElementFeatures = (elem, data) => {
   const featuresList = elem.querySelectorAll('.popup__feature');
 
-  featuresList.forEach((feature) => {
-    const modifier = data.some((item) => feature.classList.contains(`popup__feature--${item}`));
+  if (data) {
+    featuresList.forEach((feature) => {
+      const modifier = data.some((item) => feature.classList.contains(`popup__feature--${item}`));
 
-    return !modifier ? feature.remove() : null;
+      return !modifier ? feature.remove() : null;
 
-  });
+    });
+  }
+
 };
 
 const fillElementPhotos = (elem, photos) => {
   const photosContainer = elem.querySelector('.popup__photos');
   const photoElement = elem.querySelector('.popup__photo');
   photosContainer.innerHTML = '';
-  photos.forEach((photo) => {
-    const image = photoElement.cloneNode(true);
-    image.src = photo;
-    photosContainer.appendChild(image);
-  });
+  if (photos) {
+    photos.forEach((photo) => {
+      const image = photoElement.cloneNode(true);
+      image.src = photo;
+      photosContainer.appendChild(image);
+    });
+  }
+
 };
 
 const templatePopup = ({author, offer}) => {

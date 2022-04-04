@@ -23,4 +23,10 @@ const createArr = ([...source]) => Array.from(
   () => source.splice(0, 1)[0]
 );
 
-export { getInteger, randomNumWithDecimal, getRandomArrayElement, createArr };
+const hideElement = (elem, selector) => {
+  elem.querySelector(selector).style.display = 'none';
+};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export { getInteger, randomNumWithDecimal, getRandomArrayElement, createArr, hideElement, isEscapeKey };
