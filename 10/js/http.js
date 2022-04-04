@@ -3,16 +3,8 @@ const POST_DATA_URL = 'https://25.javascript.pages.academy/keksobooking';
 
 const getData = (onSuccess, onError) => {
   fetch(GET_DATA_URL)
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      } else {
-        onError();
-      }
-    })
-    .then((adverts) => {
-      onSuccess(adverts);
-    })
+    .then((response) => response.ok ?  response.json() : onError())
+    .then((adverts) => onSuccess(adverts))
     .catch(() => onError());
 };
 
@@ -22,15 +14,9 @@ const sendData = (onSuccess, onError, body) => {
     {
       method: 'POST',
       body: body,
-    },
-  ).then((response) => {
-    if (response.ok) {
-      onSuccess();
-    } else {
-      onError();
-    }
-
-  }).catch(() => onError());
+    },)
+    .then((response) => response.ok ? onSuccess() : onError())
+    .catch(() => onError());
 };
 
 

@@ -38,7 +38,7 @@ const fillElementPhotos = (elem, photos) => {
   const photosContainer = elem.querySelector('.popup__photos');
   const photoElement = elem.querySelector('.popup__photo');
   photosContainer.innerHTML = '';
-  if (photos) {
+  if (photos && photos.length) {
     photos.forEach((photo) => {
       const image = photoElement.cloneNode(true);
       image.src = photo;
