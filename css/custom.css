@@ -4,3 +4,20 @@
   padding-top: 5px;
   color: #f7112d;
 }
+
+.error-message {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  background-color: #f7112d;
+  color: #ffffff;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.ad-form__submit:disabled {
+  opacity: 0.8;
+}

@@ -1,4 +1,5 @@
 import { TYPE_PRICE_VALUES } from './data.js';
+import { DICTIONARY } from './dictionary.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormTitle = adForm.querySelector('#title');
@@ -46,10 +47,10 @@ const pristine = new Pristine(adForm, {
 const validateTitle = (value) => value.length >= TITLE_LENGTH.MIN && value.length <= TITLE_LENGTH.MAX;
 const validatePrice = (value) => value <= PRICE_MAX_VALUE && value >= TYPE_PRICE_VALUES[adFormType.value];
 const validateCapacity = () => ROOM_GUEST_CAPACITY[adFormRooms.value].includes(adFormCapacity.value);
-const getErrorTextCapacity = () => Number(adFormRooms.value) === Number(RoomsCount.HUNDRED) ? 'Комнаты не для гостей' : 'Недостаточно мест, выберите другое значение';
-const getErrorTextPrice = () => Number(adFormPrice.value) < TYPE_PRICE_VALUES[adFormType.value] ? `Минимальная цена: ${TYPE_PRICE_VALUES[adFormType.value]}` : 'Максимальная цена 100 000';
+const getErrorTextCapacity = () => Number(adFormRooms.value) === Number(RoomsCount.HUNDRED) ? DICTIONARY.FORM.ERROR_NOT_FOR_GUESTS : DICTIONARY.FORM.ERROR_NOT_ENOUGH_CAPACITY;
+const getErrorTextPrice = () => Number(adFormPrice.value) < TYPE_PRICE_VALUES[adFormType.value] ? `Минимальная цена: ${TYPE_PRICE_VALUES[adFormType.value]}` : DICTIONARY.FORM.ERROR_MAX_PRICE;
 
-pristine.addValidator(adFormTitle, validateTitle, 'От 30 до 100 символов');
+pristine.addValidator(adFormTitle, validateTitle, DICTIONARY.FORM.ERROR_TITLE);
 pristine.addValidator(adFormPrice, validatePrice, getErrorTextPrice);
 pristine.addValidator(adFormCapacity, validateCapacity, getErrorTextCapacity);
 
@@ -96,13 +97,10 @@ adFormSlider.noUiSlider.on('change', () => {
   pristine.validate(adFormPrice);
 });
 
+const resetSliderUi = () => adFormSlider.noUiSlider.reset();
+
 adFormPrice.addEventListener('change', () => {
   adFormSlider.noUiSlider.set(adFormPrice.value);
 });
 
-
-adForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-
-  pristine.validate();
-});
+export { pristine, resetSliderUi };

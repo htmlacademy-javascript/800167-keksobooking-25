@@ -1,6 +1,4 @@
-import { COUNT_ADVERTISEMENTS } from './data.js';
 import { toggleUiState } from './form.js';
-import { publishAds } from './mock.js';
 import { templatePopup } from './template.js';
 
 const addressField = document.querySelector('#address');
@@ -11,7 +9,6 @@ const DEFAULT_COORDS = {
 const DEFAULT_ZOOM = 10;
 const mapSrc = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const mapAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-const adverts = publishAds(COUNT_ADVERTISEMENTS);
 
 
 const setAddressPosition = (position = DEFAULT_COORDS) => {
@@ -30,23 +27,33 @@ const commonPinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
+const map = L.map('map-canvas');
 
-const drawMainPin = (map) => {
-  const mainPinMarker = L.marker(
-    DEFAULT_COORDS,
-    {
-      draggable: true,
-      icon: mainPinIcon
-    },
-  );
+L.tileLayer(mapSrc, { attribution: mapAttr }).addTo(map);
+
+const mainPinMarker = L.marker(
+  DEFAULT_COORDS,
+  {
+    draggable: true,
+    icon: mainPinIcon
+  },
+);
+
+const drawMainPin = () => {
   mainPinMarker.addTo(map);
   mainPinMarker.on('moveend', (evt) => {
     setAddressPosition(evt.target.getLatLng());
   });
 };
 
-const drawCommonPins = (map) => {
+const resetMainPin = () => {
+  mainPinMarker.setLatLng(DEFAULT_COORDS);
+  setAddressPosition(DEFAULT_COORDS);
+  map.setView(DEFAULT_COORDS, DEFAULT_ZOOM);
+  map.closePopup();
+};
 
+const drawCommonPins = (pins) => {
   const createMarker = (item) => {
     const commonPinMarker = L.marker(
       item.location,
@@ -58,25 +65,22 @@ const drawCommonPins = (map) => {
     commonPinMarker.addTo(map).bindPopup(templatePopup(item));
   };
 
-  adverts.forEach((advert) => {
+  pins.forEach((advert) => {
     createMarker(advert);
   });
 
 };
 
 
-const drawMap = () => {
-  const map = L.map('map-canvas')
-    .on('load', () => {
-      toggleUiState(true);
-      setAddressPosition();
-    })
+const drawMap = (adverts) => {
+  map.on('load', () => {
+    toggleUiState(true);
+    setAddressPosition();
+  })
     .setView(DEFAULT_COORDS, DEFAULT_ZOOM);
 
-  L.tileLayer(mapSrc, { attribution: mapAttr }).addTo(map);
-
-  drawMainPin(map);
-  drawCommonPins(map);
+  drawMainPin();
+  drawCommonPins(adverts);
 };
 
-export { drawMap };
+export { drawMap, setAddressPosition, resetMainPin };
