@@ -21,3 +21,10 @@
 .ad-form__submit:disabled {
   opacity: 0.8;
 }
+
+
+.ad-form__photo {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
