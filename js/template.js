@@ -20,10 +20,12 @@ const fillElementAvatar = (elem, selector, imgSrc) => {
   }
 };
 
-const fillElementFeatures = (elem, data) => {
+const fillElementFeatures = (elem, selector, data) => {
   const featuresList = elem.querySelectorAll('.popup__feature');
-
-  if (data) {
+  if (data === undefined) {
+    hideElement(elem, selector);
+  }
+  if (data && data.length) {
     featuresList.forEach((feature) => {
       const modifier = data.some((item) => feature.classList.contains(`popup__feature--${item}`));
 
@@ -58,7 +60,7 @@ const templatePopup = ({author, offer}) => {
   fillElementContent(element, '.popup__text--capacity', `${offer.rooms} комнаты для ${offer.guests} гостей`);
   fillElementContent(element, '.popup__text--time', `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`);
 
-  fillElementFeatures(element, offer.features);
+  fillElementFeatures(element, '.popup__features', offer.features);
 
   fillElementContent(element, '.popup__description', offer.description);
 

@@ -1,12 +1,14 @@
 import { toggleUiState } from './form.js';
 import { templatePopup } from './template.js';
+import { filterAdvertisements } from './filters.js';
 
 const addressField = document.querySelector('#address');
 const DEFAULT_COORDS = {
   lat: 35.6895,
   lng: 139.692
 };
-const DEFAULT_ZOOM = 10;
+const DEFAULT_ZOOM = 11;
+const COUNT_ADVERTISEMENTS = 10;
 const mapSrc = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const mapAttr = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
@@ -28,6 +30,7 @@ const commonPinIcon = L.icon({
 });
 
 const map = L.map('map-canvas');
+const layer = L.layerGroup().addTo(map);
 
 L.tileLayer(mapSrc, { attribution: mapAttr }).addTo(map);
 
@@ -62,10 +65,10 @@ const drawCommonPins = (pins) => {
       },
     );
 
-    commonPinMarker.addTo(map).bindPopup(templatePopup(item));
+    commonPinMarker.addTo(layer).bindPopup(templatePopup(item));
   };
-
-  pins.forEach((advert) => {
+  layer.clearLayers();
+  pins.slice().filter(filterAdvertisements).slice(0, COUNT_ADVERTISEMENTS).forEach((advert) => {
     createMarker(advert);
   });
 
@@ -83,4 +86,4 @@ const drawMap = (adverts) => {
   drawCommonPins(adverts);
 };
 
-export { drawMap, setAddressPosition, resetMainPin };
+export { drawMap, setAddressPosition, resetMainPin, drawCommonPins, map };

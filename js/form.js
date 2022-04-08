@@ -1,31 +1,27 @@
-import { resetMainPin } from './map.js';
+import { drawMap, drawCommonPins, resetMainPin } from './map.js';
 import { resetSliderUi, pristine } from './validation.js';
 import { getData, sendData } from './http.js';
 import { showErrorMessage, showTypicalMessage } from './alerts.js';
-import { drawMap } from './map.js';
 import { DICTIONARY } from './dictionary.js';
+import { activateFilters, toggleFiltersStateUi } from './filters.js';
+import { debounce } from './utils.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = Array.from(adForm.children);
 const mapForm = document.querySelector('.map__filters');
-const mapFormElements = Array.from(mapForm.children);
 const adFormSendButton = document.querySelector('.ad-form__submit');
 const adFormResetButton = document.querySelector('.ad-form__reset');
 
-const COUNT_ADVERTISEMENTS = 10;
 const RESET_PIN_DELAY = 100;
+const RERENDER_DELAY = 500;
 
 const toggleUiState = (isActive) => {
   if (isActive) {
     adForm.classList.remove('ad-form--disabled');
-    mapForm.classList.remove('map__filters--disabled');
     adFormElements.forEach((elem) => elem.removeAttribute('disabled'));
-    mapFormElements.forEach((elem) => elem.removeAttribute('disabled'));
   } else {
     adForm.classList.add('ad-form--disabled');
-    mapForm.classList.add('map__filters--disabled');
     adFormElements.forEach((elem) => elem.setAttribute('disabled', true));
-    mapFormElements.forEach((elem) => elem.setAttribute('disabled', true));
   }
 };
 
@@ -49,7 +45,17 @@ const setDefaultStateForm = () => {
 };
 
 getData(
-  (adverts) => adverts ? drawMap(adverts.slice(0, COUNT_ADVERTISEMENTS)) : drawMap(),
+  (adverts) => {
+    if (adverts)  {
+      drawMap(adverts);
+      toggleFiltersStateUi(true);
+      activateFilters(debounce(
+        () => drawCommonPins(adverts),
+        RERENDER_DELAY));
+    } else {
+      drawMap();
+    }
+  },
   () => showErrorMessage(DICTIONARY.HTTP.ERROR_GET)
 );
 

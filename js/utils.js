@@ -29,4 +29,13 @@ const hideElement = (elem, selector) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export { getInteger, randomNumWithDecimal, getRandomArrayElement, createArr, hideElement, isEscapeKey };
+const debounce =  (callback, timeoutDelay = 500) => {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { getInteger, randomNumWithDecimal, getRandomArrayElement, createArr, hideElement, isEscapeKey, debounce };
