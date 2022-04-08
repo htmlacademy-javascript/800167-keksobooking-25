@@ -5,17 +5,17 @@ import { showErrorMessage, showTypicalMessage } from './alerts.js';
 import { DICTIONARY } from './dictionary.js';
 import { activateFilters, toggleFiltersStateUi } from './filters.js';
 import { debounce } from './utils.js';
-import { previewPicture } from './preview.js';
+import { addPictureUploadListeners } from './preview.js';
 
 const adForm = document.querySelector('.ad-form');
 const adFormElements = Array.from(adForm.children);
 const mapForm = document.querySelector('.map__filters');
-const adFormSendButton = document.querySelector('.ad-form__submit');
-const adFormResetButton = document.querySelector('.ad-form__reset');
-const uploadAvatarInput = document.querySelector('.ad-form-header__input');
-const formAvatarField = document.querySelector('.ad-form-header__avatar');
-const uploadPhotoInput = document.querySelector('.ad-form__input');
-const formPhotoField = document.querySelector('.ad-form__photo');
+const adFormSendButton = adForm.querySelector('.ad-form__submit');
+const adFormResetButton = adForm.querySelector('.ad-form__reset');
+const uploadAvatarInput = adForm.querySelector('.ad-form-header__input');
+const formAvatarField = adForm.querySelector('.ad-form-header__avatar');
+const uploadPhotoInput = adForm.querySelector('.ad-form__input');
+const formPhotoField = adForm.querySelector('.ad-form__photo');
 
 const RESET_PIN_DELAY = 100;
 const RERENDER_DELAY = 500;
@@ -89,7 +89,7 @@ adForm.addEventListener('submit', (evt) => {
   }
 });
 
-previewPicture(uploadAvatarInput, formAvatarField);
-previewPicture(uploadPhotoInput, formPhotoField, true);
+addPictureUploadListeners(uploadAvatarInput, formAvatarField);
+addPictureUploadListeners(uploadPhotoInput, formPhotoField, true);
 
 export { toggleUiState };
