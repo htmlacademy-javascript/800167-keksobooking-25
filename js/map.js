@@ -1,5 +1,6 @@
 import { toggleUiState } from './form.js';
 import { templatePopup } from './template.js';
+import { filterAdvertisements } from './filters.js';
 
 const addressField = document.querySelector('#address');
 const DEFAULT_COORDS = {
@@ -67,7 +68,7 @@ const drawCommonPins = (pins) => {
     commonPinMarker.addTo(layer).bindPopup(templatePopup(item));
   };
   layer.clearLayers();
-  pins.slice(0, COUNT_ADVERTISEMENTS).forEach((advert) => {
+  pins.slice().filter(filterAdvertisements).slice(0, COUNT_ADVERTISEMENTS).forEach((advert) => {
     createMarker(advert);
   });
 
