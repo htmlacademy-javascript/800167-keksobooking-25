@@ -1,10 +1,9 @@
-import { resetMainPin } from './map.js';
+import { drawMap, drawCommonPins, resetMainPin } from './map.js';
 import { resetSliderUi, pristine } from './validation.js';
 import { getData, sendData } from './http.js';
 import { showErrorMessage, showTypicalMessage } from './alerts.js';
-import { drawMap } from './map.js';
 import { DICTIONARY } from './dictionary.js';
-import { activateFilters, filterAdvertisements, toggleFiltersStateUi } from './filters.js';
+import { activateFilters, toggleFiltersStateUi } from './filters.js';
 import { debounce } from './utils.js';
 
 const adForm = document.querySelector('.ad-form');
@@ -51,7 +50,7 @@ getData(
       drawMap(adverts);
       toggleFiltersStateUi(true);
       activateFilters(debounce(
-        () => filterAdvertisements(adverts),
+        () => drawCommonPins(adverts),
         RERENDER_DELAY));
     } else {
       drawMap();

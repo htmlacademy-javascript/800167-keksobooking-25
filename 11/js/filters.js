@@ -1,12 +1,12 @@
-import { drawCommonPins, map } from './map.js';
+import { map } from './map.js';
 
 const mapForm = document.querySelector('.map__filters');
 const mapFormElements = Array.from(mapForm.children);
-const housingType = document.querySelector('#housing-type');
-const housingPrice = document.querySelector('#housing-price');
-const housingRooms = document.querySelector('#housing-rooms');
-const housingGuests = document.querySelector('#housing-guests');
-const housingFeatures = document.querySelector('.map__features');
+const housingType = mapForm.querySelector('#housing-type');
+const housingPrice = mapForm.querySelector('#housing-price');
+const housingRooms = mapForm.querySelector('#housing-rooms');
+const housingGuests = mapForm.querySelector('#housing-guests');
+const housingFeatures = mapForm.querySelector('.map__features');
 
 
 const DEFAULT_VALUE_ANY = 'any';
@@ -39,31 +39,26 @@ const toggleFiltersStateUi = (isActive) => {
   }
 };
 
-const filterType = ({offer}, type) => offer.type === type || type === DEFAULT_VALUE_ANY;
-const filterPrice = ({offer}, price) => offer.price >= RANGE_PRICES[price].MIN_PRICE && offer.price <= RANGE_PRICES[price].MAX_PRICE;
-const filterRooms = ({offer}, rooms) => offer.rooms === Number(rooms) || rooms === DEFAULT_VALUE_ANY;
-const filterGuests = ({offer}, guests) => offer.guests === Number(guests) || guests === DEFAULT_VALUE_ANY;
-const filterFeatures = ({offer}) => {
+const filterType = (elem, type) => elem === type || type === DEFAULT_VALUE_ANY;
+const filterPrice = (elem, price) => elem >= RANGE_PRICES[price].MIN_PRICE && elem <= RANGE_PRICES[price].MAX_PRICE;
+const filterRooms = (elem, rooms) => elem === Number(rooms) || rooms === DEFAULT_VALUE_ANY;
+const filterGuests = (elem, guests) => elem === Number(guests) || guests === DEFAULT_VALUE_ANY;
+const filterFeatures = (elem) => {
   const checkedFeatures = Array.from(housingFeatures.querySelectorAll(':checked'));
   const featureValue = checkedFeatures.map((feature) => feature.value);
   if (!checkedFeatures.length) {
     return true;
   }
-  if (offer.features) {
-    return featureValue.every((feature) => offer.features.includes(feature));
+  if (elem) {
+    return featureValue.every((feature) => elem.includes(feature));
   }
 };
 
-const filterAdvertisements = (advertisements) => {
-  const filteredAdvertisements = advertisements
-    .filter((offer) => filterType(offer, String(housingType.value)))
-    .filter((offer) => filterPrice(offer, String(housingPrice.value)))
-    .filter((offer) => filterRooms(offer, housingRooms.value))
-    .filter((offer) => filterGuests(offer, housingGuests.value))
-    .filter((offer) => filterFeatures(offer));
-
-  drawCommonPins(filteredAdvertisements);
-};
+const filterAdvertisements = ({offer}) => filterType(offer.type, String(housingType.value)) &&
+    filterPrice(offer.price, String(housingPrice.value)) &&
+    filterRooms(offer.rooms, housingRooms.value) &&
+    filterGuests(offer.guests, housingGuests.value) &&
+    filterFeatures(offer.features);
 
 const activateFilters = (cb) => {
   mapForm.addEventListener('change', () => {
